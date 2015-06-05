@@ -1,0 +1,17 @@
+var app = require("./app/server/modules/routes");
+
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+// Node events
+server.on('request', function(request, response) {
+
+});
+
+server.on('close', function() {
+
+});
+
+server.listen(8000, function() {
+  console.log('Listening on port %d', server.address().port);
+});
