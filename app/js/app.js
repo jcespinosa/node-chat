@@ -28,11 +28,11 @@ $(document).ready(function() {
   var socket = io.connect('http://localhost:8000');
 
   socket.on('connection', function(data) {
-    toastr.success(data.message);
+    toastr.success(data);
   });
 
   socket.on('message', function(data) {
-    console.log(data.message);
+    console.log(data);
     //insertMessage();
   });
 
@@ -42,6 +42,7 @@ $(document).ready(function() {
     if(message.length > 0) {
       console.log('Sending message: ' + message);
       socket.emit('message', message);
+      //insertMessage();
     } else {
       console.log('Empty message');
     }

@@ -7,13 +7,12 @@ module.exports = function(server) {
   io.on('connection', function(client) {
     console.log('Client connected');
 
-    client.emit('connection', {
-      message: 'Bienvenido'
-    });
+    client.emit('connection', 'Bienvenido');
 
     // On new message
     client.on('message', function(data) {
       console.log(data);
+      client.broadcast.emit('message', data);
     });
   });
 
