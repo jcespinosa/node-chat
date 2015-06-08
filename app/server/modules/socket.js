@@ -7,8 +7,8 @@ module.exports = function(server) {
   io.on('connection', function(client) {
     console.log('Client connected');
 
-    client.emit('message', {
-      message: 'Hello world!'
+    client.emit('connection', {
+      message: 'Bienvenido'
     });
 
     // On new message
