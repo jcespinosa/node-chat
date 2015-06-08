@@ -29,11 +29,19 @@ $(document).ready(function() {
 
   socket.on('connection', function(data) {
     toastr.success(data);
+    var nickname = prompt('What is your nickname? ');
+    UI.setConnectionStatus(nickname);
+    socket.emit('join', nickname);
+  });
+
+  socket.on('join', function(data) {
+    toastr.info(data + ' joined the chat!');
+    //UI.insertUser();
   });
 
   socket.on('message', function(data) {
     console.log(data);
-    //insertMessage();
+    //UI.insertMessage();
   });
 
   $(document).on('click', 'button#send-message', function(e) {
@@ -42,7 +50,7 @@ $(document).ready(function() {
     if(message.length > 0) {
       console.log('Sending message: ' + message);
       socket.emit('message', message);
-      //insertMessage();
+      //UI.insertMessage();
     } else {
       console.log('Empty message');
     }

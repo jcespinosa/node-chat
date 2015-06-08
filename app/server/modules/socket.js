@@ -9,10 +9,18 @@ module.exports = function(server) {
 
     client.emit('connection', 'Bienvenido');
 
+    // On new member
+    client.on('join', function(nickname) {
+      client.nickname = nickname;
+      client.broadcast.emit('join', nickname);
+    });
+
     // On new message
     client.on('message', function(data) {
-      console.log(data);
-      client.broadcast.emit('message', data);
+      var message = client.nickname + ': ' + data;
+      console.log(message);
+      client.broadcast.emit('message', message);
+      client.emit('message', message);
     });
   });
 

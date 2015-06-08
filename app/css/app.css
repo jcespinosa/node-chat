@@ -9,17 +9,33 @@
 
 */
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+
 /*
  ==================================================
  STYLES FOR HTML TAGS
  ==================================================
 */
 
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
 /*
  ==================================================
  GLOBAL CLASSES
  ==================================================
 */
+
+.centered {
+  text-align: center;
+  vertical-align: middle;
+}
 
 /*
  ==================================================
