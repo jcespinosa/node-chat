@@ -8,22 +8,31 @@
   jcespinosa/jceceniceros 2015
 */
 
-$(document).ready(function() {
-  // Init socket
+var SOCKET = function() {
   var socket = io.connect('http://localhost:8000');
+
+  var user = {
+    id: 0,
+    name: ''
+  };
 
   // On new connection
   socket.on('connection', function(id) {
-    var username = UI.setConnectionStatus(id);
-    socket.emit('join', username);
-    console.log('User: ' + id);
+    user.id = id;
+    user.name = UI.setConnectionStatus(id);
+    socket.emit('join', user);
+    toastr.success('Welcome ' + user.name + '!');
   });
 
   // On new member
   socket.on('join', function(user) {
-    console.log(user);
     UI.insertUser(user.id, user.name);
-    toastr.info(user.name+ ' joined the chat!');
+    toastr.info(user.name + ' joined the chat!');
+  });
+
+  // Add other connected users
+  socket.on('addUser', function(user) {
+    UI.insertUser(user.id, user.name);
   });
 
   // On new message
@@ -31,4 +40,6 @@ $(document).ready(function() {
     //UI.insertMessage();
     console.log(data);
   });
-});
+
+  return socket;
+};

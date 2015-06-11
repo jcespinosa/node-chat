@@ -9,6 +9,8 @@
 */
 
 $(document).ready(function() {
+  //Init socket
+  var socket = SOCKET();
 
   $(document).on('click', 'button#chat-send-message', function(e) {
     e.preventDefault();
