@@ -48,11 +48,32 @@ ul {
  ==================================================
 */
 
+div.chat-message {
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin-bottom: 15px;
+} div.chat-message.user {
+  background-color: #dff0d8;
+}
+
+div.chat-message >
+p.username {
+  font-weight: 700;
+  font-size: 12px;
+}
+
 /*
  ==================================================
  SPECIFIC ID's
  ==================================================
 */
+
+div#chat-users,
+div#chat-messages {
+  max-height: 400px;
+  overflow-y: scroll; 
+}
 
 /*
 ==================================================

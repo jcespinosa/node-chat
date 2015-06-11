@@ -36,13 +36,11 @@ module.exports = function(server) {
 
     // On new message
     client.on('message', function(message) {
-      console.log(message);
       var message = {
-        username: client.username,
+        username: client.name,
         message: message
       };
       client.broadcast.emit('message', message);
-      client.emit('message', message);
       storeMessage(message);
     });
   });

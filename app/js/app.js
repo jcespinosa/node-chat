@@ -18,9 +18,11 @@ $(document).ready(function() {
     if(message.length > 0) {
       console.log('Sending message: ' + message);
       socket.emit('message', message);
+      UI.insertUserMessage(message);
     } else {
       console.log('Empty message');
     }
+    $('#chat-newmessage').val('');
   });
 
   try{

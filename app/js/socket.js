@@ -36,9 +36,15 @@ var SOCKET = function() {
   });
 
   // On new message
-  socket.on('message', function(data) {
-    //UI.insertMessage();
+  socket.on('message', function(message) {
+    console.log(message);
+    UI.insertMessage(message);
+  });
+
+  // On new message
+  socket.on('addMessage', function(message) {
     console.log(data);
+    UI.insertMessage();
   });
 
   return socket;

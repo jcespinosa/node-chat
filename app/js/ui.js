@@ -34,8 +34,23 @@ var UI = (function() {
         ).append(' '+username)
       );
     },
-    insertMessage: function() {
-
+    insertUserMessage: function(message) {
+      messages.append(
+        $('<div>', {class: 'chat-message user'}).append(
+          $('<p>', {class: 'username', html: 'Yo:'})
+        ).append(
+          $('<p>', {class: 'text', html: message})
+        )
+      );
+    },
+    insertMessage: function(message) {
+      messages.append(
+        $('<div>', {class: 'chat-message'}).append(
+          $('<p>', {class: 'username', html: message.username + ':'})
+        ).append(
+          $('<p>', {class: 'text', html: message.message})
+        )
+      );
     },
     removeUser: function() {
 
