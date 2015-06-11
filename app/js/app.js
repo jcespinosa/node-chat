@@ -9,40 +9,7 @@
 
 */
 
-function initToastr(){
-  toastr.options = {
-    "closeButton": true,
-    "positionClass": "toast-top-right",
-    "showDuration": "500",
-    "hideDuration": "10000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
-}
-
 $(document).ready(function() {
-  var socket = io.connect('http://localhost:8000');
-
-  socket.on('connection', function(data) {
-    toastr.success(data);
-    var nickname = prompt('What is your nickname? ');
-    UI.setConnectionStatus(nickname);
-    socket.emit('join', nickname);
-  });
-
-  socket.on('join', function(data) {
-    toastr.info(data + ' joined the chat!');
-    //UI.insertUser();
-  });
-
-  socket.on('message', function(data) {
-    console.log(data);
-    //UI.insertMessage();
-  });
 
   $(document).on('click', 'button#send-message', function(e) {
     e.preventDefault();
@@ -58,7 +25,7 @@ $(document).ready(function() {
 
   try{
     if(toastr){
-      initToastr();
+      UI.initToastr();
     }
   } catch(e) {
     console.log(e);
