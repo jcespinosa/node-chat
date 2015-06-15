@@ -38,13 +38,7 @@ var SOCKET = function() {
   // On new message
   socket.on('message', function(message) {
     console.log(message);
-    UI.insertMessage(message);
-  });
-
-  // On new message
-  socket.on('addMessage', function(message) {
-    console.log(data);
-    UI.insertMessage();
+    UI.insertMessage(message, user.id);
   });
 
   return socket;

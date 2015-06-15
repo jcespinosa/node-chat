@@ -10,7 +10,17 @@
 
 var UI = (function() {
   var users = $('#chat-onlineUsers');
-  var messages = $('#chat-messages');
+
+  var appendMessage = function(username, message, user) {
+    var classes = (user) ? 'chat-message user' : 'chat-message';
+    $('#chat-messages').append(
+      $('<div>', {class: classes}).append(
+        $('<p>', {class: 'username', html: username})
+      ).append(
+        $('<p>', {class: 'text', html: message})
+      )
+    );
+  };
 
   return {
     initToastr: function() {
@@ -34,23 +44,12 @@ var UI = (function() {
         ).append(' '+username)
       );
     },
-    insertUserMessage: function(message) {
-      messages.append(
-        $('<div>', {class: 'chat-message user'}).append(
-          $('<p>', {class: 'username', html: 'Yo:'})
-        ).append(
-          $('<p>', {class: 'text', html: message})
-        )
-      );
-    },
-    insertMessage: function(message) {
-      messages.append(
-        $('<div>', {class: 'chat-message'}).append(
-          $('<p>', {class: 'username', html: message.username + ':'})
-        ).append(
-          $('<p>', {class: 'text', html: message.message})
-        )
-      );
+    insertMessage: function(message, userId) {
+      if(message.userId === userId) {
+        appendMessage('Yo:', message.message, true);
+      } else {
+        appendMessage(message.username + ':', message.message);
+      }
     },
     removeUser: function() {
 

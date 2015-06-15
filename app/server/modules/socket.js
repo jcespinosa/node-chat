@@ -1,10 +1,10 @@
 var socketio = require('socket.io');
 
 module.exports = function(server) {
-  var io = socketio.listen(server),
-      id = 0,
-      users = {},
-      messages = [];
+  var id = 0,
+      io = socketio.listen(server),
+      messages = [],
+      users = {};
 
   function storeMessage(message) {
     messages.push(message);
@@ -31,16 +31,21 @@ module.exports = function(server) {
       for(var id in users) {
         client.emit('addUser', users[id]);
       }
+      messages.forEach(function(message) {
+        client.emit('message', message);
+      });
       storeUser(user);
     });
 
     // On new message
     client.on('message', function(message) {
       var message = {
+        userId: client.ID,
         username: client.name,
         message: message
       };
       client.broadcast.emit('message', message);
+      client.emit('message', message);
       storeMessage(message);
     });
   });
