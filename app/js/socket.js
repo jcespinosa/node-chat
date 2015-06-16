@@ -27,7 +27,7 @@ var SOCKET = function() {
   // On new member
   socket.on('join', function(user) {
     UI.insertUser(user.id, user.name);
-    toastr.info(user.name + ' joined the chat!');
+    toastr.info(user.name + ' joined!');
   });
 
   // Add other connected users
@@ -35,9 +35,14 @@ var SOCKET = function() {
     UI.insertUser(user.id, user.name);
   });
 
+  // Remove disconnected user
+  socket.on('removeUser', function(user) {
+    UI.removeUser(user.id);
+    toastr.info(user.name + ' left the chat');
+  });
+
   // On new message
   socket.on('message', function(message) {
-    console.log(message);
     UI.insertMessage(message, user.id);
   });
 

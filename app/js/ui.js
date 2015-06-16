@@ -51,8 +51,8 @@ var UI = (function() {
         appendMessage(message.username + ':', message.message);
       }
     },
-    removeUser: function() {
-
+    removeUser: function(userId) {
+      users.children('#user'+userId)[0].remove();
     },
     setConnectionStatus: function(id) {
       var username = prompt('What is your username?');

@@ -1,21 +1,9 @@
 var socketio = require('socket.io');
+var storage = require('./storage');
 
 module.exports = function(server) {
   var id = 0,
-      io = socketio.listen(server),
-      messages = [],
-      users = {};
-
-  function storeMessage(message) {
-    messages.push(message);
-    if(messages.length > 10) {
-      messages.shift();
-    }
-  }
-
-  function storeUser(user) {
-    users[user.id] = user;
-  }
+      io = socketio.listen(server);
 
   // socket.io events
   io.sockets.on('connection', function(client) {
@@ -28,13 +16,9 @@ module.exports = function(server) {
     client.on('join', function(user) {
       client.name = user.name;
       client.broadcast.emit('join', user);
-      for(var id in users) {
-        client.emit('addUser', users[id]);
-      }
-      messages.forEach(function(message) {
-        client.emit('message', message);
-      });
-      storeUser(user);
+      storage.getUsers(client);
+      storage.getMessages(client);
+      storage.storeUser(user);
     });
 
     // On new message
@@ -46,7 +30,18 @@ module.exports = function(server) {
       };
       client.broadcast.emit('message', message);
       client.emit('message', message);
-      storeMessage(message);
+      storage.storeMessage(message);
+    });
+
+    // On disconnect user
+    client.on('disconnect', function() {
+      var user = {
+        id: client.ID,
+        name: client.name
+      };
+      client.broadcast.emit('removeUser', user);
+      storage.removeUser(client.ID);
+      console.log('Client disconnected');
     });
   });
 

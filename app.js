@@ -1,5 +1,4 @@
 var app = require('./app/server/modules/routes');
-
 var server = require('http').createServer(app);
 var io = require('./app/server/modules/socket')(server);
 
