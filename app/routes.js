@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 // Load Express Configuration
-require('./config')(app, express);
+require('./config/express')(app, express);
 
 // Root route
 app.get('/', function(req, res) {

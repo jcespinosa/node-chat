@@ -1,6 +1,6 @@
-var app = require('./app/server/modules/routes');
+var app = require('./app/routes');
 var server = require('http').createServer(app);
-var io = require('./app/server/modules/socket')(server);
+var io = require('./app/modules/socket')(server);
 
 // Node events
 server.on('request', function(request, response) {});
