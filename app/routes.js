@@ -1,18 +1,15 @@
 var express = require('express');
 var app = express();
-var path = require('path');
+var paths = require('./config/paths');
 
 // Load Express Configuration
 require('./config/express')(app, express);
 
-// Root route
-app.get('/chat', function(req, res) {
-  res.render('index');
-});
+// Load controllers
+var HomeController = require(paths.CONTROLLERS + '/HomeController');
 
-// Root route
-app.get('/about', function(req, res) {
-  res.sendFile('about.html', {root: path.join(__dirname, '../public')});
-});
+app.get('/', HomeController.index);
+app.get('/chat', HomeController.chat);
+app.get('/about', HomeController.about);
 
 module.exports = app;
