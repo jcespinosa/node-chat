@@ -4,17 +4,18 @@ A 'Hello World!' NodeJS application: Chat room
 
 :)
 
-My standard folder structure
+Folder structure
 
-node-chat
-    |
-    ----- app (Server logic)
-    |
-    ----- node_modules (All node modules)
-    |
-    ----- public (Client logic and static content) 
-    |
-    ----- app.js
-    |
-    ----- package.json
-    
+* node-chat/
+  * app/ (Server logic)
+    * config/ (Initial configuration)
+    * controllers/
+    * helpers/
+    * middleware/
+    * models/
+    * modules/
+    * views/
+  * node_modules/ (All node modules)
+  * public/ (Client logic and static content)
+  * app.js
+  * package.json
